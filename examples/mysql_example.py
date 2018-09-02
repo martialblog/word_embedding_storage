@@ -7,7 +7,7 @@ import mysql.connector
 from io import BytesIO
 
 
-# Start an MySQL database
+# Start a MySQL database via Docker
 # docker run -ti --rm --name ohmysql -e MYSQL_ROOT_PASSWORD=mikolov -e MYSQL_DATABASE=embeddings -p 3306:3306 mysql:5.7
 
 
@@ -16,7 +16,7 @@ def adapt_array(array):
     Using the numpy.save function to save a binary version of the array,
     and BytesIO to catch the stream of data and convert it into a BLOB.
 
-    :param numpy.array array: NumPy array to turn into sqlite3.Binary
+    :param numpy.array array: NumPy array to turn into a BLOB
     :return: NumPy array as BLOB
     :rtype: BLOB
     """
@@ -61,7 +61,7 @@ for key, emb in dummy.embeddings():
 ########
 # Read #
 ########
-for key, emb in dummy.embeddings():
+for key, _ in dummy.embeddings():
     cursor.execute('SELECT embedding FROM `embeddings` WHERE `key`=%s;', (key,))
     data = cursor.fetchone()
     emb = convert_array(data[0])
