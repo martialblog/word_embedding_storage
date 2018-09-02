@@ -57,9 +57,10 @@ for key, emb in dummy.embeddings():
 ########
 # Read #
 ########
-for key, emb in dummy.embeddings():
+for key, _ in dummy.embeddings():
     cursor.execute('SELECT * FROM embeddings WHERE key=?', (key,))
     data = cursor.fetchone()
+    assert(type(data[1]) is numpy.ndarray)
 
 cursor.execute('DROP TABLE embeddings')
 connection.commit()

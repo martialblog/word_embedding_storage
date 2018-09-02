@@ -64,4 +64,6 @@ for key, _ in dummy.embeddings():
     emb = convert_array(obj['emb'])
     assert(type(emb) is numpy.ndarray)
 
+embeddings_collection.delete_many({})
+
 client.close()

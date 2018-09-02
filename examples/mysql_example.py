@@ -41,9 +41,10 @@ def convert_array(blob):
     return numpy.load(out)
 
 
-connection = mysql.connector.connect(user='root', password='mikolov',
-                              host='127.0.0.1',
-                              database='embeddings')
+connection = mysql.connector.connect(user='root',
+                                     password='mikolov',
+                                     host='127.0.0.1',
+                                     database='embeddings')
 
 cursor = connection.cursor()
 
@@ -52,7 +53,6 @@ cursor.execute('CREATE TABLE IF NOT EXISTS `embeddings` (`key` TEXT, `embedding`
 #########
 # Write #
 #########
-
 for key, emb in dummy.embeddings():
     arr = adapt_array(emb)
     cursor.execute('INSERT INTO `embeddings` (`key`, `embedding`) VALUES (%s, %s);', (key, arr))

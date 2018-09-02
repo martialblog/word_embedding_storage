@@ -49,7 +49,7 @@ for key, emb in dummy.embeddings():
 ########
 # Read #
 ########
-for key, emb in dummy.embeddings():
+for key, _ in dummy.embeddings():
     arr = connection.get(key.encode())
     emb = convert_array(arr)
     assert(type(emb) is numpy.ndarray)
