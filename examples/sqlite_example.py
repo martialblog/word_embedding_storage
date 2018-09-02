@@ -41,16 +41,18 @@ def convert_array(blob):
 sqlite3.register_adapter(numpy.ndarray, adapt_array)
 sqlite3.register_converter('array', convert_array)
 
-connection = sqlite3.connect(':memory:', detect_types=sqlite3.PARSE_DECLTYPES)
+connection = sqlite3.connect('./sqlite.embeddings.db', detect_types=sqlite3.PARSE_DECLTYPES)
 cursor = connection.cursor()
 
 cursor.execute('CREATE TABLE embeddings (key text, embedding array)')
+connection.commit()
 
 #########
 # Write #
 #########
 for key, emb in dummy.embeddings():
     cursor.execute('INSERT INTO embeddings (key, embedding) VALUES (?, ?)', [key, emb])
+    connection.commit()
 
 ########
 # Read #
@@ -58,5 +60,8 @@ for key, emb in dummy.embeddings():
 for key, emb in dummy.embeddings():
     cursor.execute('SELECT * FROM embeddings WHERE key=?', (key,))
     data = cursor.fetchone()
+
+cursor.execute('DROP TABLE embeddings')
+connection.commit()
 
 connection.close()
