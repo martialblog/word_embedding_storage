@@ -56,6 +56,7 @@ cursor.execute('CREATE TABLE IF NOT EXISTS `embeddings` (`key` TEXT, `embedding`
 for key, emb in dummy.embeddings():
     arr = adapt_array(emb)
     cursor.execute('INSERT INTO `embeddings` (`key`, `embedding`) VALUES (%s, %s);', (key, arr))
+    connection.commit()
 
 ########
 # Read #
