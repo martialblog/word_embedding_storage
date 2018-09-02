@@ -63,3 +63,5 @@ for key, _ in dummy.embeddings():
     obj = embeddings_collection.find_one({'key': key})
     emb = convert_array(obj['emb'])
     assert(type(emb) is numpy.ndarray)
+
+client.close()
