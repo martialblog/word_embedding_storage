@@ -3,12 +3,8 @@
 
 import dummy
 import numpy
-import mysql.connector
+import plyvel
 from io import BytesIO
-
-
-# Start an MySQL database
-# docker run -ti --rm --name ohmysql -e MYSQL_ROOT_PASSWORD=mikolov -e MYSQL_DATABASE=embeddings -p 3306:3306 mysql:5.7
 
 
 def adapt_array(array):
@@ -41,32 +37,21 @@ def convert_array(blob):
     return numpy.load(out)
 
 
-connection = mysql.connector.connect(user='root', password='mikolov',
-                              host='127.0.0.1',
-                              database='embeddings')
-
-cursor = connection.cursor()
-
-cursor.execute('CREATE TABLE IF NOT EXISTS `embeddings` (`key` TEXT, `embedding` BLOB);')
+connection = plyvel.DB('./leveldb.embedding.db', create_if_missing=True)
 
 #########
 # Write #
 #########
-
 for key, emb in dummy.embeddings():
     arr = adapt_array(emb)
-    cursor.execute('INSERT INTO `embeddings` (`key`, `embedding`) VALUES (%s, %s);', (key, arr))
-    connection.commit()
+    connection.put(key.encode(), arr)
 
 ########
 # Read #
 ########
 for key, emb in dummy.embeddings():
-    cursor.execute('SELECT embedding FROM `embeddings` WHERE `key`=%s;', (key,))
-    data = cursor.fetchone()
-    emb = convert_array(data[0])
+    arr = connection.get(key.encode())
+    emb = convert_array(arr)
     assert(type(emb) is numpy.ndarray)
-
-cursor.execute('DROP TABLE `embeddings`;')
 
 connection.close()
