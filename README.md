@@ -10,6 +10,7 @@ This is, because incorporating these models into a productive applicate can be a
  - MySQL
  - MongoDB
  - LevelDB
+ - PostgreSQL
 
 ## Setup
 
