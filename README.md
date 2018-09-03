@@ -18,6 +18,8 @@ This is, because incorporating these models into a productive applicate can be a
 
 ![Write Times](writetimes.png?raw=true "Write Times")
 
+![DB Sizes](dbsizes.png?raw=true "DB Sizes")
+
 ## Setup
 
 ``` bash
