@@ -12,6 +12,12 @@ This is, because incorporating these models into a productive applicate can be a
  - LevelDB
  - PostgreSQL
 
+## Results
+
+![Read Times](readtimes.png?raw=true "Read Times")
+
+![Write Times](writetimes.png?raw=true "Write Times")
+
 ## Setup
 
 ``` bash
