@@ -43,3 +43,4 @@ Contributions are welcome. Feel free to open a Pull Request or an Issue.
  - https://radimrehurek.com/gensim/
  - https://code.google.com/archive/p/word2vec/
  - https://github.com/facebookresearch/fastText
+ - https://github.com/plasticityai/magnitude
