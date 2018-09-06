@@ -44,3 +44,4 @@ Contributions are welcome. Feel free to open a Pull Request or an Issue.
  - https://code.google.com/archive/p/word2vec/
  - https://github.com/facebookresearch/fastText
  - https://github.com/plasticityai/magnitude
+ - https://github.com/ThoughtRiver/lmdb-embeddings
